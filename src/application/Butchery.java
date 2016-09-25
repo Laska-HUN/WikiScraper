@@ -23,7 +23,7 @@ public final class Butchery {
 	}
 	
 	public static String getImages(WebElement table) {
-		String data = "\"data\":[\n";
+		String data = "\"images\":[\n";
 		List<WebElement> images = table.findElements(By.cssSelector("img"));
 		for(int i = 0; i< images.size(); i++) {
 			data = data + "{\"img" + i + "\":\"" + images.get(i).getAttribute("src");

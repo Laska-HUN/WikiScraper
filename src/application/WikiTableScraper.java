@@ -56,4 +56,8 @@ public class WikiTableScraper {
 	public WebElement getTable() {
 		return table;
 	}
+	
+	public String getPageTitle() {
+		return this.driver.findElement(By.id("firstHeading")).getText();
+	}
 }

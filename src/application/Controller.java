@@ -62,7 +62,9 @@ public class Controller {
 	        	Task<Void> table_mining = new Task<Void>() {
 	        	    @Override public Void call() {
 	        	    	WikiTableScraper scraper = WikiTableScraper.create(url.getText(), choice.getValue());
-	        	    	str = "DATA\n\n";
+	        	    	str = "URL\n\n" + url.getText();
+	        	    	str = str + "\n\nTITLE\n\n" + scraper.getPageTitle();
+	        	    	str = str + "\n\nDATA\n\n";
 	            		str = str + Butchery.getData(scraper.getTable());
 	            		str = str + "\n\nIMAGES\n\n";
 	            		str = str + Butchery.getImages(scraper.getTable());
