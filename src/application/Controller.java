@@ -1,8 +1,6 @@
 package application;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -17,7 +15,7 @@ import javafx.scene.control.TextField;
 
 public class Controller {
 	
-	private List<KeyValue> list;
+	private String str;
 	private boolean toggled = false;
 	
 	ObservableList<String> browser_list = FXCollections.observableArrayList("PhantomJS", "Firefox");
@@ -63,17 +61,18 @@ public class Controller {
         		
 	        	Task<Void> table_mining = new Task<Void>() {
 	        	    @Override public Void call() {
-	        	    	WikiTableScraper scraper = WikiTableScraper.create(url.getText(), choice.getValue());	            		
-	            		list = new ArrayList<KeyValue>(Butchery.CutToList(scraper.getTable()));
+	        	    	WikiTableScraper scraper = WikiTableScraper.create(url.getText(), choice.getValue());
+	        	    	str = "DATA\n\n";
+	            		str = str + Butchery.getData(scraper.getTable());
+	            		str = str + "\n\nIMAGES\n\n";
+	            		str = str + Butchery.getImages(scraper.getTable());
 	            		scraper.kill();	           			            		
 	            		return null;
 	        	    }
 	        	};
 	        	
 	        	table_mining.setOnSucceeded(e -> {
-		        	for(int i=0; i<list.size(); i++) {
-	        			result.appendText(list.get(i).getKey()+ "  " + list.get(i).getValue() + " \n");
-	        		}
+	        		result.setText(str);
 		        	toggleUI();
 	        	});
 	        		        	
